@@ -1,6 +1,8 @@
 package com.inflearn.springsecurity.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -18,5 +20,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.formLogin();
         http.httpBasic();
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        // {noop} prefix 를 사용하면 기본 패스워드 인코더를 사용하지 않고 DB에 저장한다.
+        auth.inMemoryAuthentication()
+                .withUser("martin").password("{noop}123").roles("USER").and()
+                .withUser("admin").password("{noop}!@#").roles("ADMIN");
     }
 }
