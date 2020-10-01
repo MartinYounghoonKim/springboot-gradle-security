@@ -1,9 +1,14 @@
 package com.inflearn.springsecurity.config;
 
+import org.springframework.cglib.proxy.NoOp;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
@@ -18,6 +23,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.formLogin();
         http.httpBasic();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder () {
+        // 현재는 사용하지 않지만 {noop} 이 추가되지 않는다.
+//        return NoOpPasswordEncoder.getInstance();
+        // 기본값은 bcrypt 로 저장된다.
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
 //    @Override
