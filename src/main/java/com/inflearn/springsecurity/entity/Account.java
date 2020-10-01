@@ -1,5 +1,7 @@
 package com.inflearn.springsecurity.entity;
 
+import static javax.persistence.GenerationType.AUTO;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,7 +13,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Account {
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = AUTO)
     private Long id;
 
     @Column(unique = true)
@@ -20,4 +22,8 @@ public class Account {
     private String password;
 
     private String role;
+
+    public void encodePassword () {
+        this.password = "{noop}" + this.password;
+    }
 }
