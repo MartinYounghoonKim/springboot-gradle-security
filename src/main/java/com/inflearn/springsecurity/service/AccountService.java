@@ -13,7 +13,9 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class AccountService implements UserDetailsService {
-
+    // UserDetailsService 가 인증을 처리하는 클래스는 아니다.
+    // 단순한 DAO 역할이라고 이해하면 된다. In Memory 든 혹은 DB 든 유저 정보를 가져와서 Spring security 에게 제공하는 역할을 한다.
+    // 실제 인증은 AuthenticationManager 에서 처리 한다.
     private final PasswordEncoder passwordEncoder;
     private final AccountRepository accountRepository;
 
