@@ -30,7 +30,11 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter {
 
         // 동시 세션 제어
         http.sessionManagement()
+                // none: 인증 완료 시에도 세션 변경하지 않음
+                // changeSessionId : 인증완료시 세션 변경
+                .sessionFixation().changeSessionId()
                 .maximumSessions(1)                     // 최대 허용 가능 세션 수, -1: 무제한
+                // 아래와 같이 설정 시, A 브라우저에서 명시적으로 로그아웃 하지 않고 브라우저 종료 시, B 브라우저에서 세션 만료 전까지 로그인 불가능
                 .maxSessionsPreventsLogin(true)         // 동시 로그인 차단(새로운 세션 허용 X), false: 기존 세션 만료(default)
                 .expiredUrl("/expired");                // 세션이 만료된 경우 이동할 페이지
     }
