@@ -8,7 +8,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity(debug = true) // debug 를 true 로 설정하면 세션의 생성 시점 및 요청에 대한 filter 정보 등을 확인할 수 있다.
 public class SecurityConfigure extends WebSecurityConfigurerAdapter {
     @Autowired
     UserDetailsService userDetailsService;
