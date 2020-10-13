@@ -92,5 +92,7 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter {
                     response.sendRedirect("/denied");
                 }
             });
+        // CSRF 보안 제어
+        http.csrf().disable();                          // CSRF 비활성화 (기본 활성화)
     }
 }
