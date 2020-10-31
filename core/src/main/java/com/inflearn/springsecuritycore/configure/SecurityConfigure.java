@@ -1,7 +1,12 @@
 package com.inflearn.springsecuritycore.configure;
 
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,11 +22,7 @@ import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
+@Order(0)
 @Configuration
 @EnableWebSecurity(debug = true) // debug 를 true 로 설정하면 세션의 생성 시점 및 요청에 대한 filter 정보 등을 확인할 수 있다.
 public class SecurityConfigure extends WebSecurityConfigurerAdapter {
@@ -37,8 +38,6 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .anyRequest().authenticated();
         // formLogin 활성화
         http.formLogin()
         .successHandler(new AuthenticationSuccessHandler() {
