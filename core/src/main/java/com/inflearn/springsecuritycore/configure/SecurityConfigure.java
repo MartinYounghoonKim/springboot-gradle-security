@@ -13,9 +13,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
@@ -77,13 +76,6 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter {
                 .expiredUrl("/expired");                // 세션이 만료된 경우 이동할 페이지
 
         http.exceptionHandling()
-            .authenticationEntryPoint(new AuthenticationEntryPoint() {
-                @Override
-                public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)
-                    throws IOException, ServletException {
-                    response.sendRedirect("/login");
-                }
-            })
             .accessDeniedHandler(new AccessDeniedHandler() {
                 @Override
                 public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException)
@@ -93,5 +85,7 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter {
             });
         // CSRF 보안 제어
         http.csrf().disable();                          // CSRF 비활성화 (기본 활성화)
+
+        SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_INHERITABLETHREADLOCAL);   // 부모 Thread 와 자식 Thread 간에 인증 객체를 공유할 수 있도록 설정
     }
 }
