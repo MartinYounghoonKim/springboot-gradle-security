@@ -2,3 +2,4 @@ rootProject.name = 'spring-security'
 
 include 'basic'
 include 'core'
+include 'core-project'

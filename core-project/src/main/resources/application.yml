@@ -1,0 +1,19 @@
+spring:
+  h2:
+    console:
+      enabled: true
+  security:
+    user:
+      name: admin
+      password: 123
+      roles: ADMIN
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/security?characterEncoding=UTF-8&serverTimezone=Asia/Seoul
+    username: root
+    password: root1
+  jpa:
+    properties:
+      hibernate.format_sql: true
+    show-sql: true
+
