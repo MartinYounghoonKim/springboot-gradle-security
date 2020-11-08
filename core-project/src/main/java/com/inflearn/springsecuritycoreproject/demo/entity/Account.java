@@ -1,5 +1,6 @@
 package com.inflearn.springsecuritycoreproject.demo.entity;
 
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -12,7 +13,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Account {
+public class Account implements Serializable {
     @Id
     @GeneratedValue
     private Long id;
